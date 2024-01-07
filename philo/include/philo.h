@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:15:37 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/06 02:12:37 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/07 00:39:15 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,14 @@
 # define SUCCESS 0
 # define ERROR_ARGS 1
 # define ERROR_INIT 2
+# define ERROR_PROGRAMME 3
 # define TIME_MIN 60
+# define DEAD 0
 # define EATING 1
 # define SLEEPING 2
 # define THINKING 3
 # define NOT_START 4
-
-typedef struct s_philo
-{
-    int index;
-    int nb_meal;
-    long last_meal;
-    int     state;
-}   t_philo;
+# define NOT_DEAD 5
 
 typedef struct s_data
 {
@@ -45,12 +40,27 @@ typedef struct s_data
     int time_sleep;
     int meal_goal;
     long start_time;
-    t_philo *philo;
+    pthread_mutex_t *fork;
+
 }   t_data;
 
+typedef struct s_philo
+{
+    int index;
+    int nb_meal;
+    long last_meal;
+    int     state;
+    t_data  data;
+    pthread_t   philo_thread;
+    pthread_mutex_t *left_fork;
+    pthread_mutex_t *right_fork;
+}   t_philo;
+
 int     check_args(int argc, char **argv);
-int     init_data(t_data *data, int argc, char **argv);
+int     init_data(t_data *data, t_philo **philo, int argc, char **argv);
+int     ft_philosopher(t_data data, t_philo *philo);
 
 long	ft_atoi(char *str);
+long    get_time(void);
 
 #endif

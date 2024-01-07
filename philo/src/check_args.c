@@ -6,11 +6,11 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:23:36 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/06 02:10:38 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/06 17:33:51 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/philo.h"
+#include "../include/philo.h"
 
 long	ft_atoi(char *str)
 {
