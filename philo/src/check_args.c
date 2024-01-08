@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:23:36 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/06 17:33:51 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/08 00:38:13 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int check_args(int argc, char **argv)
         printf("positf integer are expected\n");
         return (ERROR_ARGS);
     }
-    else if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[1]) > 1024)
+    else if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[1]) > 200)
     {
         printf("wrong input\n");
         printf("between 1 and 1024 philosophers are expected\n");

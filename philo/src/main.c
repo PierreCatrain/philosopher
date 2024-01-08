@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:15:05 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/07 00:39:57 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/08 00:59:00 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 int main(int argc, char **argv)
 {
     t_data  data;
-    t_philo *philo;
+    t_all_philo all_philo;
     
-    philo = NULL;
     if (check_args(argc, argv) == ERROR_ARGS)
         return (ERROR_ARGS);
-    if (init_data(&data, &philo, argc, argv) == ERROR_INIT)
-        return (ERROR_INIT);
-    if (ft_philosopher(data, philo) == ERROR_PROGRAMME)
+    if (set_data(&data, &all_philo, argc, argv) == ERROR_SET)
+        return (ERROR_SET);
+    if (ft_philosopher(&data, &all_philo) == ERROR_PROGRAMME)
         return (ERROR_PROGRAMME);
     return (SUCCESS);
 }
