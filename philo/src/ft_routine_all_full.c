@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 20:02:20 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/07 23:02:34 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/08 03:39:45 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void    *ft_routine_all_full(void *arg)
     
     all_philo = (t_all_philo *)arg;
     index = 0;
-    while (index < all_philo->philo[0].data.nb_philo && all_philo->philo[0].all_alive == ALL_ALIVE)
+    while (index < all_philo->philo[0].data.nb_philo && all_philo->philo[0].status != DEAD)
     {
         if (all_philo->philo[index].is_full == FULL)
             index++;

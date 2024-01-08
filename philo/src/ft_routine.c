@@ -6,43 +6,38 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 19:59:08 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/08 02:46:09 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/08 03:49:07 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void     ft_change_status(t_philo *philo, int status)
-{
-    pthread_mutex_lock(&philo->mutex_status);
-    philo->status = status;
-    pthread_mutex_unlock(&philo->mutex_status);
-}
-
-int     ft_is_dead(t_philo *philo)
-{
-    return (philo->status);
-}
-
-int    ft_eat(t_philo *philo)
+int     ft_take_fork(t_philo *philo)
 {
     pthread_mutex_lock(philo->left_fork);
-    if (philo->status == DEAD || philo->all_full == FULL || philo->all_alive == NOT_ALL_ALIVE)
+    if (philo->status == DEAD || philo->all_full == FULL)
     {
         pthread_mutex_unlock(philo->left_fork);
         return (DEAD);
     }
     printf("%ld %d has taken a fork\n", get_time() - philo->data.start_time, philo->index + 1);
     pthread_mutex_lock(philo->right_fork);
-    if (philo->status == DEAD || philo->all_full == FULL || philo->all_alive == NOT_ALL_ALIVE)
+    if (philo->status == DEAD || philo->all_full == FULL)
     {
         pthread_mutex_unlock(philo->left_fork);
         pthread_mutex_unlock(philo->right_fork);
         return (DEAD);
     }
     printf("%ld %d has taken a fork\n", get_time() - philo->data.start_time, philo->index + 1);
+    return (NOT_DEAD);
+}
+
+int    ft_eat(t_philo *philo)
+{
+    if (ft_take_fork(philo) == DEAD)
+        return (DEAD);
     ft_change_status(philo, EATING);
-    if (philo->status == DEAD || philo->all_full == FULL || philo->all_alive == NOT_ALL_ALIVE)
+    if (philo->status == DEAD || philo->all_full == FULL)
     {
         pthread_mutex_unlock(philo->left_fork);
         pthread_mutex_unlock(philo->right_fork);
@@ -62,7 +57,7 @@ int    ft_eat(t_philo *philo)
 void    ft_sleep(t_philo *philo)
 {
     ft_change_status(philo, SLEEPING);
-    if (philo->status == DEAD || philo->all_full == FULL || philo->all_alive == NOT_ALL_ALIVE)
+    if (philo->status == DEAD || philo->all_full == FULL)
         return ;
     printf("%ld %d is sleeping\n", get_time() - philo->data.start_time, philo->index + 1);
     usleep(philo->data.time_sleep * 1000);
@@ -71,7 +66,7 @@ void    ft_sleep(t_philo *philo)
 void    ft_think(t_philo *philo)
 {
     ft_change_status(philo, THINKING);
-    if (philo->status == DEAD || philo->all_full == FULL || philo->all_alive == NOT_ALL_ALIVE)
+    if (philo->status == DEAD || philo->all_full == FULL)
         return ;
     printf("%ld %d is thinking\n", get_time() - philo->data.start_time, philo->index + 1);
 }
@@ -83,19 +78,19 @@ void    *ft_routine(void *arg)
     philo = (t_philo *)arg;
     if (philo->index % 2 != 0)
         usleep(philo->data.time_eat * 1000);
-    if (philo->status == DEAD || philo->all_full == FULL || philo->all_alive == NOT_ALL_ALIVE)
+    if (philo->status == DEAD || philo->all_full == FULL)
             return (NULL);
-    while (philo->status != DEAD && philo->all_full == NOT_FULL && philo->all_alive == ALL_ALIVE)
+    while (philo->status != DEAD && philo->all_full == NOT_FULL)
     {
         if (ft_eat(philo) == DEAD)
             return (NULL);
-        if (philo->status == DEAD || philo->all_full == FULL || philo->all_alive == NOT_ALL_ALIVE)
+        if (philo->status == DEAD || philo->all_full == FULL)
             return (NULL);
         ft_sleep(philo);
-        if (philo->status == DEAD || philo->all_full == FULL || philo->all_alive == NOT_ALL_ALIVE)
+        if (philo->status == DEAD || philo->all_full == FULL)
             return (NULL);
         ft_think(philo);
-        if (philo->status == DEAD || philo->all_full == FULL || philo->all_alive == NOT_ALL_ALIVE)
+        if (philo->status == DEAD || philo->all_full == FULL)
             return (NULL);
     }
     return (NULL);

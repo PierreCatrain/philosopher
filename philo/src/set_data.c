@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 01:13:24 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/08 02:49:18 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/08 04:31:24 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,8 @@ int    set_data_philo(t_data *data, t_all_philo *all_philo)
         all_philo->philo[index].status = NOT_START;
         all_philo->philo[index].is_full = NOT_FULL;
         all_philo->philo[index].all_full = NOT_FULL;
-        all_philo->philo[index].all_alive = ALL_ALIVE;
         all_philo->philo[index].data = *data;
-        pthread_mutex_init(&all_philo->philo[index].mutex_status, NULL);
+        pthread_mutex_init(&all_philo->philo[index].mutex_status, NULL); // peut etre a proteger
         index++;
     }
     return (SUCCESS);
@@ -51,7 +50,7 @@ int set_data_fork(t_data *data, t_all_philo *all_philo)
     index = -1;
     data->fork = malloc(data->nb_philo * sizeof(pthread_mutex_t));
     if (data->fork == NULL)
-        return (ERROR_SET); // free les philos
+        return (free(all_philo->philo), ERROR_SET); // free les philos
     while (++index < data->nb_philo)
     {
         if (pthread_mutex_init(&data->fork[index], NULL) != 0)

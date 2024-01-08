@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:15:37 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/08 02:31:58 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/08 04:28:05 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 # define TIME_MIN 60
 # define NOT_FULL 0
 # define FULL 1
-# define NOT_ALL_ALIVE 0
-# define ALL_ALIVE 1
 # define DEAD 0
 # define EATING 1
 # define SLEEPING 2
@@ -58,7 +56,6 @@ typedef struct s_philo
     int     status;
     int     is_full;
     int     all_full;
-    int     all_alive;
     t_data  data;
     pthread_t   philo_thread;
     pthread_mutex_t *left_fork;
@@ -74,13 +71,14 @@ typedef struct s_all_philo
 
 int     check_args(int argc, char **argv);
 int     set_data(t_data *data, t_all_philo *all_philo, int argc, char **argv);
-int     ft_philosopher(t_data *data, t_all_philo *all_philo);
+int     ft_thread(t_data *data, t_all_philo *all_philo);
 void    *ft_routine(void *arg);
 void    *ft_routine_all_full(void *arg);
 void    *ft_routine_all_alive(void *arg);
+void    ft_free_and_destroy(t_data data, t_all_philo all_philo);
 
 long	ft_atoi(char *str);
 long    get_time(void);
-void     ft_change_status(t_philo *philo, int status);
+void    ft_change_status(t_philo *philo, int status);
 
 #endif

@@ -6,11 +6,18 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 23:30:35 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/08 02:52:31 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/08 03:46:45 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+void     ft_change_status(t_philo *philo, int status)
+{
+    pthread_mutex_lock(&philo->mutex_status);
+    philo->status = status;
+    pthread_mutex_unlock(&philo->mutex_status);
+}
 
 void    *ft_routine_all_alive(void *arg)
 {
@@ -34,7 +41,6 @@ void    *ft_routine_all_alive(void *arg)
     while (index < all_philo->philo[0].data.nb_philo)
     {
         ft_change_status(&all_philo->philo[index], DEAD);
-        all_philo->philo[index].all_alive = NOT_ALL_ALIVE;
         index++;
     }
     return (NULL);
