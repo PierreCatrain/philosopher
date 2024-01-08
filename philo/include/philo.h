@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:15:37 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/08 00:37:32 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/08 02:31:58 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_philo
     pthread_t   philo_thread;
     pthread_mutex_t *left_fork;
     pthread_mutex_t *right_fork;
+    pthread_mutex_t mutex_status;
 }   t_philo;
 
 typedef struct s_all_philo
@@ -80,5 +81,6 @@ void    *ft_routine_all_alive(void *arg);
 
 long	ft_atoi(char *str);
 long    get_time(void);
+void     ft_change_status(t_philo *philo, int status);
 
 #endif

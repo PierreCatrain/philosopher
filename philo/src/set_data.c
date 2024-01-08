@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 01:13:24 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/07 23:45:06 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/08 02:49:18 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ int    set_data_philo(t_data *data, t_all_philo *all_philo)
     {
         all_philo->philo[index].index = index;
         all_philo->philo[index].nb_meal = 0;
-        all_philo->philo[index].last_meal = get_time();
+        all_philo->philo[index].last_meal = data->start_time;
         all_philo->philo[index].status = NOT_START;
         all_philo->philo[index].is_full = NOT_FULL;
         all_philo->philo[index].all_full = NOT_FULL;
         all_philo->philo[index].all_alive = ALL_ALIVE;
         all_philo->philo[index].data = *data;
+        pthread_mutex_init(&all_philo->philo[index].mutex_status, NULL);
         index++;
     }
     return (SUCCESS);
