@@ -6,12 +6,12 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:15:37 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/08 04:28:05 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/08 23:34:05 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_C
-# define PHILO_C
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <unistd.h>
 # include <stdio.h>
@@ -36,49 +36,49 @@
 
 typedef struct s_data
 {
-    int nb_philo;
-    int time_death;
-    int time_eat;
-    int time_sleep;
-    int meal_goal;
-    long start_time;
-    pthread_t   all_full_thread;
-    pthread_t   all_alive_thread;
-    pthread_mutex_t *fork;
-
-}   t_data;
+	pthread_mutex_t	*fork;
+	pthread_t		all_full_thread;
+	pthread_t		all_alive_thread;
+	long			start_time;
+	int				nb_philo;
+	int				time_death;
+	int				time_eat;
+	int				time_sleep;
+	int				meal_goal;
+}	t_data;
 
 typedef struct s_philo
 {
-    int index;
-    int nb_meal;
-    long last_meal;
-    int     status;
-    int     is_full;
-    int     all_full;
-    t_data  data;
-    pthread_t   philo_thread;
-    pthread_mutex_t *left_fork;
-    pthread_mutex_t *right_fork;
-    pthread_mutex_t mutex_status;
-}   t_philo;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	mutex_status;
+	pthread_t		philo_thread;
+	t_data			data;
+	long			last_meal;
+	int				index;
+	int				nb_meal;
+	int				status;
+	int				is_full;
+	int				all_full;
+}	t_philo;
 
 typedef struct s_all_philo
 {
-    t_philo *philo;
-}   t_all_philo;
-
-
-int     check_args(int argc, char **argv);
-int     set_data(t_data *data, t_all_philo *all_philo, int argc, char **argv);
-int     ft_thread(t_data *data, t_all_philo *all_philo);
-void    *ft_routine(void *arg);
-void    *ft_routine_all_full(void *arg);
-void    *ft_routine_all_alive(void *arg);
-void    ft_free_and_destroy(t_data data, t_all_philo all_philo);
+	t_philo	*philo;
+}	t_all_philo;
 
 long	ft_atoi(char *str);
-long    get_time(void);
-void    ft_change_status(t_philo *philo, int status);
+long	get_time(void);
+void	ft_change_status(t_philo *philo, int status);
+void	ft_free_and_destroy_set_data(t_all_philo all_philo);
+
+void	*ft_routine(void *arg);
+void	*ft_routine_all_full(void *arg);
+void	*ft_routine_all_alive(void *arg);
+void	ft_free_and_destroy(t_data data, t_all_philo all_philo);
+
+int		check_args(int argc, char **argv);
+int		set_data(t_data *data, t_all_philo *all_philo, int argc, char **argv);
+int		ft_thread(t_data *data, t_all_philo *all_philo);
 
 #endif
