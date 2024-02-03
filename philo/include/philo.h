@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:15:37 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/08 23:34:05 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/02/03 21:39:09 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	*ft_routine(void *arg);
 void	*ft_routine_all_full(void *arg);
 void	*ft_routine_all_alive(void *arg);
 void	ft_free_and_destroy(t_data data, t_all_philo all_philo);
+int		ft_protect_block_fork(t_data *data);
 
 int		check_args(int argc, char **argv);
 int		set_data(t_data *data, t_all_philo *all_philo, int argc, char **argv);

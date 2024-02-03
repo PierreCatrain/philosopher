@@ -6,11 +6,22 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 04:19:56 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/08 23:20:52 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/02/03 21:39:59 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
+
+int	ft_protect_block_fork(t_data *data)
+{
+	if (get_time() - data->start_time >= 1)
+	{
+		usleep(data->time_death * 1000);
+		printf("%ld 1 died\n", get_time() - data->start_time);
+		return (SUCCESS);
+	}
+	return (1);
+}
 
 void	ft_free_and_destroy_set_data(t_all_philo all_philo)
 {

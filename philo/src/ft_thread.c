@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:34:31 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/08 23:21:02 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/02/03 21:38:31 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,13 @@ int	ft_join_thread(t_data *data, t_all_philo *all_philo)
 
 int	ft_thread(t_data *data, t_all_philo *all_philo)
 {
+	if (ft_protect_block_fork(data) == SUCCESS)
+		return (free(data->fork), free(all_philo->philo), SUCCESS);
 	if (data->nb_philo == 1)
 		return (only_one(all_philo));
 	if (ft_creat_thread(data, all_philo) == ERROR_PROGRAMME)
 		return (ERROR_PROGRAMME);
 	if (ft_join_thread(data, all_philo) == ERROR_PROGRAMME)
 		return (ERROR_PROGRAMME);
-	return (SUCCESS);
+	return (ft_free_and_destroy(*data, *all_philo), SUCCESS);
 }

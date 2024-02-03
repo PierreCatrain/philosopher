@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:15:05 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/08 23:21:05 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/02/03 21:32:23 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ int	main(int argc, char **argv)
 		return (ERROR_SET);
 	if (ft_thread(&data, &all_philo) == ERROR_PROGRAMME)
 		return (ft_free_and_destroy(data, all_philo), ERROR_PROGRAMME);
-	return (ft_free_and_destroy(data, all_philo), SUCCESS);
+	return (SUCCESS);
 }
